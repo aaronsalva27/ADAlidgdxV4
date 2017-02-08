@@ -4,25 +4,30 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-        import com.badlogic.gdx.graphics.OrthographicCamera;
-        import com.badlogic.gdx.physics.box2d.Body;
-        import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-        import com.badlogic.gdx.physics.box2d.World;
-        import com.badlogic.gdx.scenes.scene2d.Stage;
-        import utils.WorldUtils;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import actors.Background;
+import actors.Enemy;
 import actors.Ground;
 import actors.Runner;
 import utils.BodyUtils;
+import utils.Constants;
 import utils.WorldUtils;
 
 
 public class GameStage extends Stage implements ContactListener {
 
     // This will be our viewport measurements while working with the debug renderer
-    private static final int VIEWPORT_WIDTH = 20;
-    private static final int VIEWPORT_HEIGHT = 13;
+    private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH;
+    private static final int VIEWPORT_HEIGHT = Constants.APP_HEIGHT;
 
     private final float TIME_STEP = 1 / 300f;
     private float accumulator = 0f;
@@ -34,24 +39,32 @@ public class GameStage extends Stage implements ContactListener {
     private Ground ground;
     private Runner runner;
 
+    private Rectangle screenLeftSide;
     private Rectangle screenRightSide;
 
     private Vector3 touchPoint;
 
     public GameStage() {
+        super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT,
+                new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)));
         setUpWorld();
         setupCamera();
         setupTouchControlAreas();
-        renderer = new Box2DDebugRenderer();
     }
 
     private void setUpWorld() {
         world = WorldUtils.createWorld();
-        // Let the world now you are handling contacts
         world.setContactListener(this);
+        setUpBackground();
         setUpGround();
         setUpRunner();
+        createEnemy();
     }
+
+    private void setUpBackground() {
+        addActor(new Background());
+    }
+
 
     private void setUpGround() {
         ground = new Ground(WorldUtils.createGround(world));
@@ -73,6 +86,13 @@ public class GameStage extends Stage implements ContactListener {
     public void act(float delta) {
         super.act(delta);
 
+        Array<Body> bodies = new Array<Body>(world.getBodyCount());
+        world.getBodies(bodies);
+
+        for (Body body : bodies) {
+            update(body);
+        }
+
         // Fixed timestep
         accumulator += delta;
 
@@ -80,20 +100,41 @@ public class GameStage extends Stage implements ContactListener {
             world.step(TIME_STEP, 6, 2);
             accumulator -= TIME_STEP;
         }
+
+        //TODO: Implement interpolation
+
     }
 
+    private void update(Body body) {
+        if (!BodyUtils.bodyInBounds(body)) {
+            if (BodyUtils.bodyIsEnemy(body) && !runner.isHit()) {
+                createEnemy();
+            }
+            world.destroyBody(body);
+        }
+    }
+
+    private void createEnemy() {
+        Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
+        addActor(enemy);
+    }
+
+/*
     @Override
     public void draw() {
         super.draw();
         renderer.render(world, camera.combined);
     }
+*/
 
     private void setupTouchControlAreas() {
         touchPoint = new Vector3();
+        screenLeftSide = new Rectangle(0, 0, getCamera().viewportWidth / 2, getCamera().viewportHeight);
         screenRightSide = new Rectangle(getCamera().viewportWidth / 2, 0, getCamera().viewportWidth / 2,
                 getCamera().viewportHeight);
         Gdx.input.setInputProcessor(this);
     }
+
     @Override
     public boolean touchDown(int x, int y, int pointer, int button) {
 
@@ -102,14 +143,31 @@ public class GameStage extends Stage implements ContactListener {
 
         if (rightSideTouched(touchPoint.x, touchPoint.y)) {
             runner.jump();
+        } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
+            runner.dodge();
         }
 
         return super.touchDown(x, y, pointer, button);
     }
 
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+        if (runner.isDodging()) {
+            runner.stopDodge();
+        }
+
+        return super.touchUp(screenX, screenY, pointer, button);
+    }
+
     private boolean rightSideTouched(float x, float y) {
         return screenRightSide.contains(x, y);
     }
+
+    private boolean leftSideTouched(float x, float y) {
+        return screenLeftSide.contains(x, y);
+    }
+
 
     /**
      * Helper function to get the actual coordinates in my world
@@ -126,12 +184,15 @@ public class GameStage extends Stage implements ContactListener {
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
 
-        if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
+        if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
+                (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b))) {
+            runner.hit();
+        } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
             runner.landed();
         }
-
     }
+
     @Override
     public void endContact(Contact contact) {
 
@@ -146,6 +207,8 @@ public class GameStage extends Stage implements ContactListener {
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
     }
+
+
 
 
 }

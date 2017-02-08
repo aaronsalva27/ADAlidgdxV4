@@ -1,7 +1,7 @@
 package enums;
 
-public enum UserDataType {
 
+public enum EnemyUserData {
     GROUND,
     RUNNER,
     ENEMY
