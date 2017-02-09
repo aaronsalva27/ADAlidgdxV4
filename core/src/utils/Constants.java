@@ -25,7 +25,7 @@ public class Constants {
     public static final float RUNNER_HEIGHT = 2f;
     public static float RUNNER_DENSITY = 0.5f;
 
-    public static final float RUNNER_GRAVITY_SCALE = 2f;
+    public static final float RUNNER_GRAVITY_SCALE = 4f;
     public static final float RUNNER_DODGE_X = 2f;
     public static final float RUNNER_DODGE_Y = 1.5f;
 

@@ -21,6 +21,7 @@ public class GameScreen implements Screen {
         //Update the stage
         stage.draw();
         stage.act(delta);
+        stage.touchDown();
     }
 
 

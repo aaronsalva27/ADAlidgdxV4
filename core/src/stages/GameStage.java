@@ -1,6 +1,7 @@
 package stages;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -22,8 +23,11 @@ import utils.BodyUtils;
 import utils.Constants;
 import utils.WorldUtils;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GameStage extends Stage implements ContactListener {
+
+public class GameStage extends Stage implements ContactListener,ActionListener {
 
     // This will be our viewport measurements while working with the debug renderer
     private static final int VIEWPORT_WIDTH = Constants.APP_WIDTH;
@@ -49,7 +53,7 @@ public class GameStage extends Stage implements ContactListener {
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)));
         setUpWorld();
         setupCamera();
-        setupTouchControlAreas();
+
     }
 
     private void setUpWorld() {
@@ -135,19 +139,12 @@ public class GameStage extends Stage implements ContactListener {
         Gdx.input.setInputProcessor(this);
     }
 
-    @Override
-    public boolean touchDown(int x, int y, int pointer, int button) {
-
-        // Need to get the actual coordinates
-        translateScreenToWorldCoordinates(x, y);
-
-        if (rightSideTouched(touchPoint.x, touchPoint.y)) {
+    public void touchDown() {
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             runner.jump();
-        } else if (leftSideTouched(touchPoint.x, touchPoint.y)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             runner.dodge();
         }
-
-        return super.touchDown(x, y, pointer, button);
     }
 
     @Override
@@ -187,6 +184,7 @@ public class GameStage extends Stage implements ContactListener {
         if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
                 (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b))) {
             runner.hit();
+
         } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {
             runner.landed();
@@ -209,6 +207,8 @@ public class GameStage extends Stage implements ContactListener {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-
+    }
 }
