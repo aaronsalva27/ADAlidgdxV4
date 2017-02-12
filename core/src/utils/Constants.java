@@ -11,7 +11,11 @@ public class Constants {
     public static final int APP_HEIGHT = 480;
     public static final float WORLD_TO_SCREEN = 32;
 
+<<<<<<< HEAD
     public static final Vector2 WORLD_GRAVITY = new Vector2(0, -11);
+=======
+    public static final Vector2 WORLD_GRAVITY = new Vector2(0, -10);
+>>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
 
     public static final float GROUND_X = 0;
     public static final float GROUND_Y = 0;
@@ -33,11 +37,19 @@ public class Constants {
     public static final float ENEMY_DENSITY = RUNNER_DENSITY;
     public static final float RUNNING_SHORT_ENEMY_Y = 1.5f;
     public static final float RUNNING_LONG_ENEMY_Y = 2f;
+<<<<<<< HEAD
     public static final float FLYING_ENEMY_Y = 3.2f;
     public static final Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(-22f, 0);
 
     public static final Vector2 RUNNER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 16f);
     public static final float RUNNER_HIT_ANGULAR_IMPULSE = 13f;
+=======
+    public static final float FLYING_ENEMY_Y = 3f;
+    public static final Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(-10f, 0);
+
+    public static final Vector2 RUNNER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 16f);
+    public static final float RUNNER_HIT_ANGULAR_IMPULSE = 10f;
+>>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
 
     public static final String CHARACTERS_ATLAS_PATH = "runner.txt";
     public static final String[] RUNNER_RUNNING_REGION_NAMES = new String[] {"1", "2","3", "4","5", "6","7", "8"};

@@ -7,7 +7,11 @@ buildscript {
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:1.5.0'
+=======
+        classpath 'com.android.tools.build:gradle:2.2.0'
+>>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.0'
     }
 }
