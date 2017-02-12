@@ -40,11 +40,12 @@ public class EndScreen implements Screen {
     private OrthographicCamera camera;
     private Box2DDebugRenderer renderer;
 
+    /*
     public EndScreen(){
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT,
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)));
     }
-
+*/
     @Override
     public void render(float delta) {
 

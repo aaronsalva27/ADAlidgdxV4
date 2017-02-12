@@ -2,11 +2,7 @@ package stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-<<<<<<< HEAD
-=======
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -28,10 +24,6 @@ import utils.BodyUtils;
 import utils.Constants;
 import utils.WorldUtils;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -57,10 +49,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
 
     private Vector3 touchPoint;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
     public GameStage() {
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT,
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)));
@@ -93,13 +82,11 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         addActor(runner);
     }
 
-<<<<<<< HEAD
-=======
+
     public Runner getRunner(){
          return runner;
     }
 
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
     private void setupCamera() {
         camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
@@ -117,10 +104,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
             update(body);
         }
 
-<<<<<<< HEAD
-=======
-        // Fixed timestep
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
+
         accumulator += delta;
 
         while (accumulator >= delta) {
@@ -128,11 +112,6 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
             accumulator -= TIME_STEP;
         }
 
-<<<<<<< HEAD
-=======
-        //TODO: Implement interpolation
-
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
     }
 
     private void update(Body body) {
@@ -149,8 +128,6 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         addActor(enemy);
     }
 
-<<<<<<< HEAD
-=======
 /*
     @Override
     public void draw() {
@@ -158,7 +135,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         renderer.render(world, camera.combined);
     }
 */
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
+
 
     private void setupTouchControlAreas() {
         touchPoint = new Vector3();
@@ -168,7 +145,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         Gdx.input.setInputProcessor(this);
     }
 
-<<<<<<< HEAD
+
     public void touchDown() {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             runner.jump();
@@ -187,7 +164,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         return super.touchUp(screenX, screenY, pointer, button);
     }
 
-=======
+
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.W:
@@ -218,9 +195,6 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         }
     }
 
-
-
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
     private boolean rightSideTouched(float x, float y) {
         return screenRightSide.contains(x, y);
     }
@@ -229,15 +203,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         return screenLeftSide.contains(x, y);
     }
 
-<<<<<<< HEAD
-=======
 
-    /**
-     * Helper function to get the actual coordinates in my world
-     * @param x
-     * @param y
-     */
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
     private void translateScreenToWorldCoordinates(int x, int y) {
         getCamera().unproject(touchPoint.set(x, y, 0));
     }
@@ -277,9 +243,6 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
     }
 }

@@ -1,45 +1,27 @@
 package screens;
 
-<<<<<<< HEAD
-        import com.badlogic.gdx.Gdx;
-        import com.badlogic.gdx.Screen;
-        import com.badlogic.gdx.graphics.GL20;
-        import stages.GameStage;
-        import utils.Tempo;
 
-public class GameScreen implements Screen {
-
-    public Tempo temp;
-    private GameStage stage;
-
-    public GameScreen() {
-        stage = new GameStage();
-        temp = new Tempo();
-=======
         import actors.Runner;
         import com.badlogic.gdx.Gdx;
         import com.badlogic.gdx.Input;
         import com.badlogic.gdx.Screen;
         import com.badlogic.gdx.graphics.GL20;
-        import com.badlogic.gdx.scenes.scene2d.InputListener;
-        import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-        import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
         import stages.GameStage;
+        import utils.Tempo;
 
         import static com.badlogic.gdx.Gdx.input;
         import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
 
 public class GameScreen implements Screen {
-
+    public Tempo temp;
     private GameStage stage;
     private Runner runner;
 
     public GameScreen() {
         stage = new GameStage();
         runner = stage.getRunner();
-
+        temp = new Tempo();
         input.setInputProcessor(stage);
-
 
         /*runner.addCaptureListener(new InputListener(){
             public boolean keyDown(int keycode) {
@@ -71,25 +53,14 @@ public class GameScreen implements Screen {
                 }
             }
         });*/
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
     }
 
     @Override
     public void render(float delta) {
-<<<<<<< HEAD
-        //Clear the screen
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //Update the stage
         stage.draw();
         temp.temporizador(delta);
-        stage.act(delta);
-        stage.touchDown();
-=======
-        //Clear the screenqw
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        //Update the stage
-        stage.draw();
         stage.act(delta);
 
         /*if (Gdx.input.isKeyPressed(Input.Keys.W)){
@@ -105,7 +76,7 @@ public class GameScreen implements Screen {
         } else {
             runner.stopDodge();
         }*/
->>>>>>> b2703caa62561dd9ef5d73d85e6d3010bcebe182
+
     }
 
 
