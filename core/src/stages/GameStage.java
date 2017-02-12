@@ -195,10 +195,6 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-<<<<<<< HEAD
 
-
-=======
     }
->>>>>>> ad3756e0657618942d735fffcfd953b2bdb35f4b
 }

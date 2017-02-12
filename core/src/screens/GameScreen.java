@@ -4,14 +4,16 @@ package screens;
         import com.badlogic.gdx.Screen;
         import com.badlogic.gdx.graphics.GL20;
         import stages.GameStage;
-
+        import utils.Tempo;
 
 public class GameScreen implements Screen {
 
+    public Tempo temp;
     private GameStage stage;
 
     public GameScreen() {
         stage = new GameStage();
+        temp = new Tempo();
     }
 
     @Override
@@ -20,6 +22,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //Update the stage
         stage.draw();
+        temp.temporizador(delta);
         stage.act(delta);
         stage.touchDown();
     }
