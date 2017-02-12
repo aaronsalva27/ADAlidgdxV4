@@ -2,6 +2,8 @@ package stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -22,6 +24,7 @@ import actors.Runner;
 import utils.BodyUtils;
 import utils.Constants;
 import utils.WorldUtils;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,6 +81,10 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
     private void setUpRunner() {
         runner = new Runner(WorldUtils.createRunner(world));
         addActor(runner);
+    }
+
+    public Runner getRunner(){
+         return runner;
     }
 
     private void setupCamera() {
@@ -139,23 +146,37 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         Gdx.input.setInputProcessor(this);
     }
 
-    public void touchDown() {
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            runner.jump();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            runner.dodge();
+    public boolean keyDown(int keycode) {
+        switch (keycode) {
+            case Input.Keys.W:
+                runner.jump();
+                System.out.println("Entra saltar");
+                return true;
+            case Input.Keys.S:
+                runner.dodge();
+                System.out.println("Entra esquivar");
+                return true;
+            default:
+                System.out.println("Entra default");
+                runner.stopDodge();
+                return false;
+        }
+
+    }
+
+
+    public boolean keyUp(int keycode) {
+        switch (keycode) {
+            case Input.Keys.S:
+                System.out.println("Entra stop dodge");
+                runner.stopDodge();
+                return true;
+            default:
+                return false;
         }
     }
 
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
-        if (runner.isDodging()) {
-            runner.stopDodge();
-        }
-
-        return super.touchUp(screenX, screenY, pointer, button);
-    }
 
     private boolean rightSideTouched(float x, float y) {
         return screenRightSide.contains(x, y);
