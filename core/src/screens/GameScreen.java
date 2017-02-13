@@ -6,6 +6,7 @@ package screens;
         import com.badlogic.gdx.Input;
         import com.badlogic.gdx.Screen;
         import com.badlogic.gdx.graphics.GL20;
+        import samuel.Samuel;
         import stages.GameStage;
         import utils.Tempo;
 
@@ -17,8 +18,8 @@ public class GameScreen implements Screen {
     private GameStage stage;
     private Runner runner;
 
-    public GameScreen() {
-        stage = new GameStage();
+    public GameScreen(Samuel samuel) {
+        stage = new GameStage(samuel);
         runner = stage.getRunner();
         temp = new Tempo();
         input.setInputProcessor(stage);

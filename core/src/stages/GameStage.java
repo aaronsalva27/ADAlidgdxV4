@@ -6,13 +6,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
@@ -20,9 +18,12 @@ import actors.Background;
 import actors.Enemy;
 import actors.Ground;
 import actors.Runner;
+import samuel.Samuel;
+import screens.EndScreen;
 import utils.BodyUtils;
 import utils.Constants;
 import utils.WorldUtils;
+import utils.XMLDOM;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,13 +49,17 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
     private Rectangle screenRightSide;
 
     private Vector3 touchPoint;
+    private Samuel game;
+    private XMLDOM xml;
 
-
-    public GameStage() {
+    public GameStage(Samuel game) {
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT,
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)));
         setUpWorld();
         setupCamera();
+        this.game = game;
+        xml = new XMLDOM();
+
 
     }
 
@@ -217,6 +222,9 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
                 (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b))) {
             runner.hit();
+            xml.crearXML();
+            xml.lecturaXML();
+            game.setScreen(new EndScreen(game));
 
         } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||
                 (BodyUtils.bodyIsGround(a) && BodyUtils.bodyIsRunner(b))) {

@@ -4,7 +4,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Tempo {
-    public float Temp = 0;
+    public static float Temp = 0;
+
 
     public Tempo() {
     }
@@ -13,7 +14,7 @@ public class Tempo {
         Temp = temp;
     }
 
-    public float getTemp() {
+    public static float getTemp() {
         return Temp;
     }
 
