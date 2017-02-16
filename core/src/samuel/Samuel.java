@@ -1,17 +1,25 @@
 package samuel;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import screens.EndScreen;
 import screens.GameScreen;
+import screens.ScreenGenerica;
+import utils.LecturaFichero;
+
+import java.io.IOException;
+
 
 public class Samuel extends Game {
-    private AssetManager manager;
-    public  2AssetManager getManager() { return  manager;}
-
     public GameScreen gameScreen;
     public EndScreen endScreen;
+    private AssetManager manager;
+
+    public  AssetManager getManager() {
+        return  manager;
+    }
 
     @Override
     public void create() {
@@ -22,10 +30,17 @@ public class Samuel extends Game {
         gameScreen = new GameScreen(this);
         endScreen = new EndScreen(this);
 
-        setScreen(gameScreen);
+
+        ScreenGenerica<GameScreen> gameScreenG = new ScreenGenerica<GameScreen>(gameScreen);
+        gameScreenG.classType();
+
+        ScreenGenerica<EndScreen> endScreenG = new ScreenGenerica<EndScreen>(endScreen);
+        endScreenG.classType();
+
+
+        setScreen(gameScreenG.getT());
+
 
     }
-
-    // Get rid of render function, let the parent class handle it
 
 }

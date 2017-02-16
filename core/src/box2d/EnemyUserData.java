@@ -4,28 +4,30 @@ import com.badlogic.gdx.math.Vector2;
 import enums.UserDataType;
 import utils.Constants;
 
+import java.util.LinkedList;
+
 public class EnemyUserData extends UserData {
 
-        private Vector2 linearVelocity;
-        private String[] textureRegions;
+    private Vector2 linearVelocity;
+    private LinkedList<String> textureRegions;
 
-        public EnemyUserData(float width, float height, String[] textureRegions) {
-            super(width, height);
-            userDataType = UserDataType.ENEMY;
-            linearVelocity = Constants.ENEMY_LINEAR_VELOCITY;
-            this.textureRegions = textureRegions;
-        }
+    public EnemyUserData(float width, float height, LinkedList<String> textureRegions) {
+        super(width, height);
+        userDataType = UserDataType.ENEMY;
+        linearVelocity = Constants.ENEMY_LINEAR_VELOCITY;
+        this.textureRegions = textureRegions;
+    }
 
-        public void setLinearVelocity(Vector2 linearVelocity) {
-            this.linearVelocity = linearVelocity;
-        }
+    public void setLinearVelocity(Vector2 linearVelocity) {
+        this.linearVelocity = linearVelocity;
+    }
 
-        public Vector2 getLinearVelocity() {
-            return linearVelocity;
-        }
+    public Vector2 getLinearVelocity() {
+        return linearVelocity;
+    }
 
-        public String[] getTextureRegions() {
-            return textureRegions;
-        }
+    public LinkedList<String> getTextureRegions() {
+        return textureRegions;
+    }
 
 }

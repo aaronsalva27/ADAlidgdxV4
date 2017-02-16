@@ -1,6 +1,7 @@
 package utils;
 
 import org.w3c.dom.*;
+import stages.GameStage;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,7 +17,7 @@ import java.io.File;
 public class XMLDOM {
     private Tempo puntuacion;
     private float puntos;
-    public String arxivo = ".\\cars.xml";
+    public String arxivo = ".\\puntos.xml";
     private Document doc;
     private Document docRead;
 
@@ -65,21 +66,21 @@ public class XMLDOM {
 
     public void lecturaXML(){
         try {
-            File stocks = new File(arxivo);
+            File stocks = new File("puntos.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            docRead = dBuilder.parse(stocks);
-            docRead.getDocumentElement().normalize();
+            Document doc = dBuilder.parse(stocks);
+            doc.getDocumentElement().normalize();
 
-            System.out.println("arrel " + docRead.getDocumentElement().getNodeName());
-            NodeList nodes = (NodeList) docRead.getElementsByTagName("partida").item(0);
+            System.out.println("arrel " + doc.getDocumentElement().getNodeName());
+            NodeList nodes = (NodeList) doc.getElementsByTagName("partida").item(0);
 
             for (int i=0; i< nodes.getLength(); i++){
                 Node node = nodes.item(i);
 
                 if(node.getNodeType() == Node.ELEMENT_NODE){
                     Element element = (Element) node;
-                    System.out.println("puntos "+element.getElementsByTagName("puntos").item(0).getNodeValue());
+                    System.out.println("Puntos: " + obtenirContingut("puntos", element));
                 }
 
             }
@@ -87,6 +88,12 @@ public class XMLDOM {
         }catch (Exception ex){
             ex.printStackTrace();
         }
+    }
+
+    private static String obtenirContingut(String etiqueta, Element element) {
+        NodeList nodes = element.getElementsByTagName(etiqueta).item(0).getChildNodes();
+        Node node = (Node) nodes.item(0);
+        return node.getNodeValue();
     }
 
 

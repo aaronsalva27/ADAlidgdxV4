@@ -22,9 +22,9 @@ public class Runner extends GameActor {
     public Runner(Body body) {
         super(body);
         TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
-        TextureRegion[] runningFrames = new TextureRegion[Constants.RUNNER_RUNNING_REGION_NAMES.length];
-        for (int i = 0; i < Constants.RUNNER_RUNNING_REGION_NAMES.length; i++) {
-            String path = Constants.RUNNER_RUNNING_REGION_NAMES[i];
+        TextureRegion[] runningFrames = new TextureRegion[Constants.RUNNER_RUNNING_REGION_NAMES.size()];
+        for (int i = 0; i < Constants.RUNNER_RUNNING_REGION_NAMES.size(); i++) {
+            String path = Constants.RUNNER_RUNNING_REGION_NAMES.get(i);
             runningFrames[i] = textureAtlas.findRegion(path);
         }
         runningAnimation = new Animation(0.1f, runningFrames);

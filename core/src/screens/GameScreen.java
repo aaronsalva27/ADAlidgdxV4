@@ -6,6 +6,8 @@ package screens;
         import com.badlogic.gdx.Input;
         import com.badlogic.gdx.Screen;
         import com.badlogic.gdx.graphics.GL20;
+        import com.badlogic.gdx.graphics.g2d.BitmapFont;
+        import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import samuel.Samuel;
         import stages.GameStage;
         import utils.Tempo;
@@ -23,37 +25,6 @@ public class GameScreen implements Screen {
         runner = stage.getRunner();
         temp = new Tempo();
         input.setInputProcessor(stage);
-
-        /*runner.addCaptureListener(new InputListener(){
-            public boolean keyDown(int keycode) {
-                switch (keycode) {
-                    case Input.Keys.W:
-                        runner.jump();
-                        System.out.println("Entra saltar");
-                        return true;
-                    case Input.Keys.S:
-                        //runner.dodge();
-                        System.out.println("Entra esquivar");
-                        return true;
-                    default:
-                        System.out.println("Entra default");
-                        return false;
-
-                }
-
-            }
-
-            public boolean KeyUp(int keycode) {
-                switch (keycode) {
-                    case Input.Keys.S:
-                        System.out.println("Entra stop dodge");
-                        runner.stopDodge();
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });*/
     }
 
     @Override
@@ -63,21 +34,6 @@ public class GameScreen implements Screen {
         stage.draw();
         temp.temporizador(delta);
         stage.act(delta);
-
-        /*if (Gdx.input.isKeyPressed(Input.Keys.W)){
-            SequenceAction seq = new SequenceAction();
-            System.out.println(stage.getRunner());
-            System.out.println("entra");
-            stage.keyDown(Input.Keys.W);
-            //stage.getRunner().addAction(Actions.moveBy(0,200,5));
-        }else if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            System.out.println(stage.getRunner());
-            System.out.println("entra");
-            stage.keyDown(Input.Keys.S);
-        } else {
-            runner.stopDodge();
-        }*/
-
     }
 
 
@@ -112,4 +68,6 @@ public class GameScreen implements Screen {
     }
 
 
+
 }
+

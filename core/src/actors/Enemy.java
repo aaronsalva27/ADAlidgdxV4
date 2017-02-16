@@ -17,9 +17,9 @@ public class Enemy extends GameActor {
     public Enemy(Body body) {
         super(body);
         TextureAtlas textureAtlas = new TextureAtlas(Constants.CHARACTERS_ATLAS_PATH);
-        TextureRegion[] runningFrames = new TextureRegion[getUserData().getTextureRegions().length];
-        for (int i = 0; i < getUserData().getTextureRegions().length; i++) {
-            String path = getUserData().getTextureRegions()[i];
+        TextureRegion[] runningFrames = new TextureRegion[getUserData().getTextureRegions().size()];
+        for (int i = 0; i < getUserData().getTextureRegions().size(); i++) {
+            String path = getUserData().getTextureRegions().get(i);
             runningFrames[i] = textureAtlas.findRegion(path);
         }
         animation = new Animation(0.1f, runningFrames);
