@@ -27,7 +27,11 @@ public class Samuel extends Game {
         manager.load("gameover.png",Texture.class);
         manager.finishLoading();
 
-        gameScreen = new GameScreen(this);
+        try {
+            gameScreen = new GameScreen(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         endScreen = new EndScreen(this);
 
 

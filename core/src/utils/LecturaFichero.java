@@ -9,15 +9,25 @@ import java.io.IOException;
  * Created by Aarón on 16/02/2017.
  */
 public class LecturaFichero {
-    public  String cadena;
-    public  String cadena2;
+    public static String cadena;
+    public static String cadena2;
     public  static String[] arrayCadena;
 
     public LecturaFichero (){
 
     }
 
-    public  void read() throws IOException {
+    public static float recuperarValor1() throws IOException {
+        read();
+        return Float.parseFloat(arrayCadena[0]);
+    }
+
+    public static float recuperarValor2() throws IOException {
+        read();
+        return Float.parseFloat(arrayCadena[1]);
+    }
+
+    public static void read() throws IOException {
         FileReader f = new FileReader("Constants.txt");
         BufferedReader b = new BufferedReader(f);
           while((cadena = b.readLine())!=null) {
@@ -30,7 +40,7 @@ public class LecturaFichero {
 
     }
 
-    public  void transformararray (){
+    public static void transformararray (){
         System.out.println(cadena2);
         arrayCadena = cadena2.split(",");
         System.out.println(Float.parseFloat(arrayCadena[0]));

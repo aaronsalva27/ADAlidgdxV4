@@ -12,6 +12,8 @@ import box2d.GroundUserData;
 import box2d.RunnerUserData;
 import enums.EnemyType;
 
+import java.io.IOException;
+
 
 public class WorldUtils {
 
@@ -48,7 +50,7 @@ public class WorldUtils {
 
     }
 
-    public static Body createEnemy(World world) {
+    public static Body createEnemy(World world) throws IOException {
         EnemyType enemyType = RandomUtils.getRandomEnemyType();
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;

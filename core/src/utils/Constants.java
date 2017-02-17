@@ -47,7 +47,7 @@ public class Constants {
     public static final float RUNNING_LONG_ENEMY_Y = 2f;
 
     public static final float FLYING_ENEMY_Y = 3.2f;
-    public static Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(Integer.parseInt(arrayCadena[0]), Integer.parseInt(arrayCadena[1]));
+    //public static Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(Integer.parseInt(arrayCadena[0]), Integer.parseInt(arrayCadena[1]));
 
     public static final Vector2 RUNNER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 16f);
     public static final float RUNNER_HIT_ANGULAR_IMPULSE = 13f;

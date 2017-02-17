@@ -12,6 +12,8 @@ package screens;
         import stages.GameStage;
         import utils.Tempo;
 
+        import java.io.IOException;
+
         import static com.badlogic.gdx.Gdx.input;
         import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveBy;
 
@@ -20,7 +22,7 @@ public class GameScreen implements Screen {
     private GameStage stage;
     private Runner runner;
 
-    public GameScreen(Samuel samuel) {
+    public GameScreen(Samuel samuel) throws IOException {
         stage = new GameStage(samuel);
         runner = stage.getRunner();
         temp = new Tempo();

@@ -20,6 +20,7 @@ import actors.Ground;
 import actors.Runner;
 import samuel.Samuel;
 import screens.EndScreen;
+import screens.GameScreen;
 import utils.BodyUtils;
 import utils.Constants;
 import utils.WorldUtils;
@@ -27,6 +28,7 @@ import utils.XMLDOM;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
 public class GameStage extends Stage implements ContactListener,ActionListener {
@@ -52,7 +54,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
     private Samuel game;
     private XMLDOM xml;
 
-    public GameStage(Samuel game) {
+    public GameStage(Samuel game) throws IOException {
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT,
                 new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT)));
         setUpWorld();
@@ -63,7 +65,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
 
     }
 
-    private void setUpWorld() {
+    private void setUpWorld() throws IOException {
         world = WorldUtils.createWorld();
         world.setContactListener(this);
         setUpBackground();
@@ -106,7 +108,11 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         world.getBodies(bodies);
 
         for (Body body : bodies) {
-            update(body);
+            try {
+                update(body);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -119,7 +125,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
 
     }
 
-    private void update(Body body) {
+    private void update(Body body) throws IOException {
         if (!BodyUtils.bodyInBounds(body)) {
             if (BodyUtils.bodyIsEnemy(body) && !runner.isHit()) {
                 createEnemy();
@@ -128,7 +134,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         }
     }
 
-    private void createEnemy() {
+    private void createEnemy() throws IOException {
         Enemy enemy = new Enemy(WorldUtils.createEnemy(world));
         addActor(enemy);
     }
@@ -179,6 +185,14 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
             case Input.Keys.S:
                 runner.dodge();
                 System.out.println("Entra esquivar");
+                return true;
+            case Input.Keys.B:
+                try {
+                    game.setScreen(new GameScreen(game));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Entra salir");
                 return true;
             default:
                 System.out.println("Entra default");
