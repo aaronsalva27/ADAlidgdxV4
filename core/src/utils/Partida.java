@@ -1,6 +1,8 @@
 package utils;
 
-public class Partida implements Comparable<Partida>{
+import java.io.Serializable;
+
+public class Partida implements Comparable<Partida>,Serializable{
     public static float pointS;
     public static String levelS;
 

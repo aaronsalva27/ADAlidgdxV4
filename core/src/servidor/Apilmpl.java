@@ -5,6 +5,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import utils.Partida;
 
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
@@ -79,7 +80,7 @@ public class Apilmpl extends UnicastRemoteObject implements Api {
 
     }
 
-    public Map<Float, String> returnPuntos() throws RemoteException {
+    public Map<Float, String> returnPuntos(Partida partidaEnCurso) throws RemoteException {
         try {
             File stocks = new File(".\\puntos2.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -106,6 +107,7 @@ public class Apilmpl extends UnicastRemoteObject implements Api {
 
             MapPartidas.setArrPartidas(puntos,nivel);
             MapPartidas.getArrPartidas();
+            MapPartidas.setArraylistPartidas(partidaEnCurso);
 
             MapPartidas.getSortPoints();
 

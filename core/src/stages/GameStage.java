@@ -187,7 +187,7 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
                 partidaEnCurso.setPoints(Tempo.Temp);
                 partidaEnCurso.setLevel(LecturaFichero.recuperarValor1());
 
-                MapPartidas.setArraylistPartidas(partidaEnCurso);
+
 
             } catch (IOException e) {
                 e.printStackTrace();

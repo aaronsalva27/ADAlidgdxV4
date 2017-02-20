@@ -24,7 +24,7 @@ public class Cliente extends UnicastRemoteObject{
         registre = LocateRegistry.getRegistry(HOST, PORT);
         Api remoteApi = (Api) registre.lookup(Api.class.getSimpleName());
         remoteApi.generarXML(new Data(partidaEnCurso.getPoints()).getValor(),partidaEnCurso.getLevel());
-        remoteApi.returnPuntos();
+        remoteApi.returnPuntos(partidaEnCurso);
         //System.out.println(info[0]);
 
     }

@@ -1,5 +1,7 @@
 package api;
 
+import utils.Partida;
+
 import java.rmi.RemoteException;
 import java.rmi.*;
 import java.util.Map;
@@ -11,6 +13,6 @@ public interface Api extends Remote {
 
     public void generarXML(float object1, String object2) throws RemoteException;
 
-    public Map<Float, String> returnPuntos() throws RemoteException;
+    public Map<Float, String> returnPuntos(Partida partidaEnCurso) throws RemoteException;
 
 }

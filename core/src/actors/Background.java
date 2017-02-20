@@ -1,16 +1,30 @@
+/**
+ * @
+ *
+ */
+
 package actors;
 
-        import com.badlogic.gdx.Gdx;
-        import com.badlogic.gdx.graphics.Texture;
-        import com.badlogic.gdx.graphics.g2d.Batch;
-        import com.badlogic.gdx.graphics.g2d.TextureRegion;
-        import com.badlogic.gdx.math.Rectangle;
-        import com.badlogic.gdx.scenes.scene2d.Actor;
-        import utils.Constants;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import utils.Constants;
 
+/**
+ * @author Aaron Salvador, David Ramirez, Aldair Ñique
+ * @version 20/02/2017
+ * Classe Background, implementa los métodos para asignar
+ * las propiedades al fondo. También implementa los métodos
+ * que gestionan su comportamiento y renderizado.
+ */
 public class Background extends Actor {
 
+    // variable que define una area rectangular de una textura
     private final TextureRegion textureRegion;
+
     private Rectangle textureRegionBounds1;
     private Rectangle textureRegionBounds2;
     private int speed = 100;
