@@ -1,7 +1,6 @@
 package utils;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -45,10 +44,7 @@ public class LecturaFichero {
     }
 
     public static void transformararray (){
-        System.out.println(cadena2);
-        arrayCadena = cadena2.split(",");
-        System.out.println(Float.parseFloat(arrayCadena[0]));
-        System.out.println(Float.parseFloat(arrayCadena[1]));
+         arrayCadena = cadena2.split(",");
     }
 
 }

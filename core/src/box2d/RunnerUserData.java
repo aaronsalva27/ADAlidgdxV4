@@ -20,10 +20,6 @@ public class RunnerUserData extends UserData {
         return jumpingLinearImpulse;
     }
 
-    public void setJumpingLinearImpulse(Vector2 jumpingLinearImpulse) {
-        this.jumpingLinearImpulse = jumpingLinearImpulse;
-    }
-
     public float getDodgeAngle() {
         // In radians
         return (float) (-90f * (Math.PI / 180f));

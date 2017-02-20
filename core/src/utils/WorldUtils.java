@@ -8,8 +8,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import box2d.GroundUserData;
 import box2d.RunnerUserData;
 import box2d.EnemyUserData;
-import box2d.GroundUserData;
-import box2d.RunnerUserData;
 import enums.EnemyType;
 
 import java.io.IOException;

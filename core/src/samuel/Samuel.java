@@ -1,13 +1,11 @@
 package samuel;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import screens.EndScreen;
 import screens.GameScreen;
 import screens.ScreenGenerica;
-import utils.LecturaFichero;
 
 import java.io.IOException;
 

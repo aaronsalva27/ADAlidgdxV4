@@ -1,16 +1,11 @@
 package utils;
 
 import com.badlogic.gdx.math.Vector2;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static utils.LecturaFichero.arrayCadena;
 
 
 public class Constants {
@@ -47,7 +42,6 @@ public class Constants {
     public static final float RUNNING_LONG_ENEMY_Y = 2f;
 
     public static final float FLYING_ENEMY_Y = 3.2f;
-    //public static Vector2 ENEMY_LINEAR_VELOCITY = new Vector2(Integer.parseInt(arrayCadena[0]), Integer.parseInt(arrayCadena[1]));
 
     public static final Vector2 RUNNER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 16f);
     public static final float RUNNER_HIT_ANGULAR_IMPULSE = 13f;

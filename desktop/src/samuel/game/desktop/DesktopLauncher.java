@@ -13,9 +13,6 @@ import java.io.IOException;
 public class DesktopLauncher {
 	public static void main (String[] arg) throws Exception {
 
-
-
-
 		LecturaFichero lectura = new LecturaFichero();
 
 		new Thread() {

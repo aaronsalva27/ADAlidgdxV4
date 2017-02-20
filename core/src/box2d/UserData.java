@@ -12,10 +12,6 @@ public abstract class UserData {
         return userDataType;
     }
 
-    public UserData() {
-
-    }
-
     public UserData(float width, float height) {
         this.width = width;
         this.height = height;

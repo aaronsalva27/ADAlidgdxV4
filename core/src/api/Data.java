@@ -3,6 +3,7 @@ package api;
 /**
  * Created by Aarón on 17/02/2017.
  */
+
 import java.io.*;
 
 public class Data implements Serializable {
@@ -13,11 +14,9 @@ public class Data implements Serializable {
         this.valor = valor;
     }
 
+
     public float getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
 }

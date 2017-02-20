@@ -15,7 +15,6 @@ public class Servidor {
     private static Registry registre;
 
     public static void iniciarRegistre() throws RemoteException {
-
         registre = java.rmi.registry.LocateRegistry.createRegistry(PORT);
     }
 

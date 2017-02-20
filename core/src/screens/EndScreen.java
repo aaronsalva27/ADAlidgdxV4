@@ -9,11 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import samuel.Samuel;
 import stages.EndStage;
-import stages.GameStage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
-
-import java.awt.*;
+import static utils.Partida.*;
 
 
 /**
@@ -21,8 +18,6 @@ import java.awt.*;
  */
 public class EndScreen implements Screen {
     private EndStage stage;
-    private SpriteBatch batch;
-    private BitmapFont font;
     private Image gameover;
 
 
@@ -30,12 +25,9 @@ public class EndScreen implements Screen {
         stage = new EndStage(game);
         gameover = new Image(game.getManager().get("gameover.png", Texture.class));
         gameover.setPosition(200,200);
-
         stage.addActor(gameover);
 
     }
-
-
 
     @Override
     public void render(float delta) {
@@ -44,13 +36,12 @@ public class EndScreen implements Screen {
         stage.act();
         stage.draw();
 
-
         SpriteBatch spriteBatch = new SpriteBatch();
         BitmapFont font = new BitmapFont();
         spriteBatch.begin();
             font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-            font.getData().setScale(5,5);
-            font.draw(spriteBatch,"Puntos: ",200,200);
+            font.getData().setScale(2,2);
+            font.draw(spriteBatch,"Puntos: "+pointS+" Dificultad: "+levelS,200,200);
         spriteBatch.end();
     }
 
@@ -84,4 +75,6 @@ public class EndScreen implements Screen {
         stage.dispose();
 
     }
+
+
 }

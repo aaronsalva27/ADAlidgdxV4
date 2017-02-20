@@ -22,6 +22,7 @@ import actors.Runner;
 import samuel.Samuel;
 import screens.EndScreen;
 import screens.GameScreen;
+import servidor.MapPartidas;
 import utils.*;
 
 import java.awt.event.ActionEvent;
@@ -39,18 +40,15 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
     private float accumulator = 0f;
 
     private OrthographicCamera camera;
-    private Box2DDebugRenderer renderer;
 
     private World world;
     private Ground ground;
     private Runner runner;
 
-    private Rectangle screenLeftSide;
-    private Rectangle screenRightSide;
-
-    private Vector3 touchPoint;
     private Samuel game;
-    private XMLDOM xml;
+
+
+    public Partida partidaEnCurso = new Partida();
 
     public GameStage(Samuel game) throws IOException {
         super(new ScalingViewport(Scaling.stretch, VIEWPORT_WIDTH, VIEWPORT_HEIGHT,
@@ -58,9 +56,6 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         setUpWorld();
         setupCamera();
         this.game = game;
-        xml = new XMLDOM();
-
-
     }
 
     private void setUpWorld() throws IOException {
@@ -137,63 +132,28 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         addActor(enemy);
     }
 
-/*
-    @Override
-    public void draw() {
-        super.draw();
-        renderer.render(world, camera.combined);
-    }
-*/
-
-
-    private void setupTouchControlAreas() {
-        touchPoint = new Vector3();
-        screenLeftSide = new Rectangle(0, 0, getCamera().viewportWidth / 2, getCamera().viewportHeight);
-        screenRightSide = new Rectangle(getCamera().viewportWidth / 2, 0, getCamera().viewportWidth / 2,
-                getCamera().viewportHeight);
-        Gdx.input.setInputProcessor(this);
-    }
-
-
-    public void touchDown() {
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            runner.jump();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            runner.dodge();
-        }
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-
-        if (runner.isDodging()) {
-            runner.stopDodge();
-        }
-
-        return super.touchUp(screenX, screenY, pointer, button);
-    }
-
 
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.W:
                 runner.jump();
-                System.out.println("Entra saltar");
+                //System.out.println("Entra saltar");
                 return true;
             case Input.Keys.S:
                 runner.dodge();
-                System.out.println("Entra esquivar");
+                //System.out.println("Entra esquivar");
                 return true;
             case Input.Keys.B:
                 try {
                     game.setScreen(new GameScreen(game));
+                    Tempo.Temp =0;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println("Entra salir");
+                //System.out.println("Entra salir");
                 return true;
             default:
-                System.out.println("Entra default");
+                //System.out.println("Entra default");
                 runner.stopDodge();
                 return false;
         }
@@ -204,25 +164,12 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
     public boolean keyUp(int keycode) {
         switch (keycode) {
             case Input.Keys.S:
-                System.out.println("Entra stop dodge");
+                //System.out.println("Entra stop dodge");
                 runner.stopDodge();
                 return true;
             default:
                 return false;
         }
-    }
-
-    private boolean rightSideTouched(float x, float y) {
-        return screenRightSide.contains(x, y);
-    }
-
-    private boolean leftSideTouched(float x, float y) {
-        return screenLeftSide.contains(x, y);
-    }
-
-
-    private void translateScreenToWorldCoordinates(int x, int y) {
-        getCamera().unproject(touchPoint.set(x, y, 0));
     }
 
     @Override
@@ -234,13 +181,24 @@ public class GameStage extends Stage implements ContactListener,ActionListener {
         if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsEnemy(b)) ||
                 (BodyUtils.bodyIsEnemy(a) && BodyUtils.bodyIsRunner(b))) {
             runner.hit();
-            /*xml.crearXML();
-            xml.lecturaXML();*/
+
+
             try {
-                Cliente.main(Tempo.getTemp());
+                partidaEnCurso.setPoints(Tempo.Temp);
+                partidaEnCurso.setLevel(LecturaFichero.recuperarValor1());
+
+                MapPartidas.setArraylistPartidas(partidaEnCurso);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Cliente.main(partidaEnCurso);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             game.setScreen(new EndScreen(game));
 
         } else if ((BodyUtils.bodyIsRunner(a) && BodyUtils.bodyIsGround(b)) ||

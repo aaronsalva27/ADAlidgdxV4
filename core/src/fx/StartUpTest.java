@@ -1,50 +1,31 @@
 package fx;
-import com.badlogic.gdx.Game;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import samuel.Samuel;
-import screens.GameScreen;
-import stages.GameStage;
-import utils.Constants;
+import servidor.MapPartidas;
 import utils.LecturaFichero;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.net.URL;
 import java.util.concurrent.CountDownLatch;
 
 
 public class StartUpTest extends Application {
     public static final CountDownLatch latch = new CountDownLatch(1);
     public static StartUpTest startUpTest = null;
-
-    public static StartUpTest waitForStartUpTest() {
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return startUpTest;
-    }
 
     public static void setStartUpTest(StartUpTest startUpTest0) {
         startUpTest = startUpTest0;
@@ -55,17 +36,35 @@ public class StartUpTest extends Application {
         setStartUpTest(this);
     }
 
-    public void printSomething() {
-        System.out.println("You called a method on the application");
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-/*
-        BorderPane pane = new BorderPane();
-        Scene scene = new Scene(pane, 500, 500);
-        primaryStage.setScene(scene);
-*/
+        Text t = new Text();
+        t.setFont(new Font(20));
+        t.setWrappingWidth(200);
+        t.setTextAlignment(TextAlignment.JUSTIFY);
+        t.setText("Partidas:");
+        Text tpuntos = new Text();
+
+        Task dynamicTimeTask = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                while (true) {
+                    updateMessage(String.valueOf(MapPartidas.getObjPartids()));
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
+                        break;
+                    }
+                }
+                return null;
+            }
+        };
+        tpuntos.textProperty().bind(dynamicTimeTask.messageProperty());
+        Thread t2 = new Thread(dynamicTimeTask);
+        t2.setName("Tesk Time Updater");
+        t2.setDaemon(true);
+        t2.start();
+
         Button btn1 = new Button();
         btn1.setText("Easy");
         btn1.setOnAction(new EventHandler<ActionEvent>() {
@@ -98,7 +97,7 @@ public class StartUpTest extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(grid, 350, 600);
         primaryStage.setScene(scene);
 
         Text scenetitle = new Text("Samuel v0.4");
@@ -111,6 +110,8 @@ public class StartUpTest extends Application {
         grid.add(btn2, 0, 3);
         grid.add(btn3, 0, 4);
 
+        grid.add(t,0,5);
+        grid.add(tpuntos,0,6);
         primaryStage.setScene(scene);
         primaryStage.show();
 
